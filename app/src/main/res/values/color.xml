@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="instruction_background_color">#FF9933</color>
+    <color name="message_content_underneath_grey">#9c9c9c</color>
+</resources>
