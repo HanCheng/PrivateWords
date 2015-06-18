@@ -9,5 +9,8 @@
     <string name="app_curious_world">It is a curious world.</string>
     <string name="title_activity_private_words_results">PrivateWordsResultsActivity</string>
 
-    <string name="hello_world">Hello world!</string>
+    <string name="new_posted">New Post</string>
+    <string name="most_liked">Most Liked</string>
+    <string name="most_posted">Most Posted</string>
+
 </resources>

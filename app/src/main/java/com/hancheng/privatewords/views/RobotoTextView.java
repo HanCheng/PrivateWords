@@ -22,7 +22,7 @@ public class RobotoTextView extends TextView {
 
     private void setCustomFont(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.RobotoTextView);
-        String customFont = typedArray.getString(R.)
+//        String customFont = typedArray.getString(R.)
     }
 
 }

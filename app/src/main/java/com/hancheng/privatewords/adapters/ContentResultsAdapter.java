@@ -13,7 +13,6 @@ import com.hancheng.privatewords.models.PrivateMessage;
 
 import org.joda.time.DateTime;
 import org.joda.time.Period;
-import org.joda.time.format.PeriodFormatter;
 import org.joda.time.format.PeriodFormatterBuilder;
 
 import java.util.List;
@@ -29,6 +28,7 @@ public class ContentResultsAdapter extends ArrayAdapter<PrivateMessage> {
 
     public ContentResultsAdapter(Context context, List<PrivateMessage> messageList) {
         super(context, R.layout.results_item_row, messageList);
+        mContext = context;
         mInflater = LayoutInflater.from(context);
         mMessageList = messageList;
 
@@ -44,6 +44,8 @@ public class ContentResultsAdapter extends ArrayAdapter<PrivateMessage> {
             holder.mMessageText = (TextView) convertView.findViewById(R.id.private_word_content);
             holder.mUserName = (TextView) convertView.findViewById(R.id.user_name);
             holder.mPostTimeElapsed = (TextView) convertView.findViewById(R.id.post_time_elapsed);
+            holder.mCommentsIcon = (ImageView) convertView.findViewById(R.id.comments_icon);
+            holder.mCommentsNumber = (TextView) convertView.findViewById(R.id.comments_number);
             holder.mPostIcon = (ImageView) convertView.findViewById(R.id.posted_icon);
             holder.mPostNumber = (TextView) convertView.findViewById(R.id.posted_number);
             convertView.setTag(holder);
@@ -54,9 +56,25 @@ public class ContentResultsAdapter extends ArrayAdapter<PrivateMessage> {
             holder.mUserName.setText(message.getUser().getUserName());
             holder.mPostNumber.setText(message.getUser().getPostedNumber());
             Period period = new Period(message.getSentTime(), DateTime.now());
-            PeriodFormatter formatter = new PeriodFormatterBuilder()
-                    .appendPrefix("posted ").appendSeconds().appendSuffix(" seconds ago")
-
+            PeriodFormatterBuilder formatterBuilder = new PeriodFormatterBuilder()
+                    .appendPrefix("posted");
+            if (period.getMonths() != 0) {
+                formatterBuilder.appendMonths().appendSuffix("month ago");
+            } else if (period.getWeeks() != 0) {
+                formatterBuilder.appendWeeks().appendSuffix("weeks ago");
+            } else if (period.getDays() != 0) {
+                formatterBuilder.appendDays().appendSuffix("days ago");
+            } else if (period.getHours() != 0) {
+                formatterBuilder.appendHours().appendSuffix("hours ago");
+            } else if (period.getMinutes() != 0) {
+                formatterBuilder.appendMinutes().appendSuffix("minutes ago");
+            } else if (period.getSeconds() != 0) {
+                formatterBuilder.appendSeconds().appendSuffix("seconds ago");
+            }
+            // elapsed time and comments number should be updated
+            // reference : http://stackoverflow.com/a/3727813
+            holder.mPostTimeElapsed.setText(formatterBuilder.printZeroNever().toFormatter().print(period));
+            holder.mCommentsNumber.setText(message.getCommentsNumber());
         }
         return convertView;
     }
@@ -65,6 +83,8 @@ public class ContentResultsAdapter extends ArrayAdapter<PrivateMessage> {
         TextView mMessageText;
         TextView mUserName;
         TextView mPostTimeElapsed;
+        ImageView mCommentsIcon;
+        TextView mCommentsNumber;
         ImageView mPostIcon;
         TextView mPostNumber;
     }

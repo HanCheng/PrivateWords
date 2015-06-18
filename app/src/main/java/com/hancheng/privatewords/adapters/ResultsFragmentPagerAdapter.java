@@ -19,9 +19,14 @@ public class ResultsFragmentPagerAdapter extends FragmentPagerAdapter {
     private SparseArray<ResultsListFragment> mListFragments;
     private final List<String> mTitles = new ArrayList<>(FRAGMENT_COUNT);
 
-    public ResultsFragmentPagerAdapter(FragmentManager fm) {
-        super(fm);
+    public ResultsFragmentPagerAdapter(FragmentManager fragmentManager) {
+        super(fragmentManager);
         mListFragments = new SparseArray<>(FRAGMENT_COUNT);
+    }
+
+    public void setTitles(List<String> titles) {
+        mTitles.clear();
+        mTitles.addAll(titles);
     }
 
     @Override

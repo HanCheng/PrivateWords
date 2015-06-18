@@ -18,6 +18,7 @@ public class PrivateMessage implements Serializable {
     private int mUnLikedNumber;
     private User mUser;
     private int mPostedNumber;
+    private int mCommentsNumber;
 
     public void setId(int id) {
         this.mId = id;
@@ -87,6 +88,15 @@ public class PrivateMessage implements Serializable {
         this.mPostedNumber = postedNumber;
     }
 
+
+    public int getCommentsNumber() {
+        return mCommentsNumber;
+    }
+
+    public void setCommentsNumber(int commentsNumber) {
+        this.mCommentsNumber = commentsNumber;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -94,21 +104,32 @@ public class PrivateMessage implements Serializable {
 
         PrivateMessage that = (PrivateMessage) o;
 
-        if (mMessageContent != null ? !mMessageContent.equals(that.mMessageContent) : that.mMessageContent != null)
+        if (mId != that.mId) return false;
+        if (mLikedNumber != that.mLikedNumber) return false;
+        if (mUnLikedNumber != that.mUnLikedNumber) return false;
+        if (mPostedNumber != that.mPostedNumber) return false;
+        if (mCommentsNumber != that.mCommentsNumber) return false;
+        if (mSentTime != null ? !mSentTime.equals(that.mSentTime) : that.mSentTime != null)
             return false;
         if (mReceivedTime != null ? !mReceivedTime.equals(that.mReceivedTime) : that.mReceivedTime != null)
             return false;
-        if (mSentTime != null ? !mSentTime.equals(that.mSentTime) : that.mSentTime != null)
+        if (mMessageContent != null ? !mMessageContent.equals(that.mMessageContent) : that.mMessageContent != null)
             return false;
+        return !(mUser != null ? !mUser.equals(that.mUser) : that.mUser != null);
 
-        return true;
     }
 
     @Override
     public int hashCode() {
-        int result = mSentTime != null ? mSentTime.hashCode() : 0;
+        int result = mId;
+        result = 31 * result + (mSentTime != null ? mSentTime.hashCode() : 0);
         result = 31 * result + (mReceivedTime != null ? mReceivedTime.hashCode() : 0);
         result = 31 * result + (mMessageContent != null ? mMessageContent.hashCode() : 0);
+        result = 31 * result + mLikedNumber;
+        result = 31 * result + mUnLikedNumber;
+        result = 31 * result + (mUser != null ? mUser.hashCode() : 0);
+        result = 31 * result + mPostedNumber;
+        result = 31 * result + mCommentsNumber;
         return result;
     }
 }
