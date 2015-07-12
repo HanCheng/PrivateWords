@@ -19,7 +19,6 @@ import static java.lang.String.format;
 public class PrivateWordsResultsActivity extends FragmentActivity {
 
     private ResultsFragmentPagerAdapter mResultsFragmentPagerAdapter;
-    private View mRootView;
     private PagerSlidingTabStrip mResultsPagerSlidingTabStrip;
     private ViewPager mResultsViewPager;
 
@@ -30,9 +29,9 @@ public class PrivateWordsResultsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_private_words_results);
 
-        mRootView = findViewById(R.id.results_root_view);
-        mResultsPagerSlidingTabStrip = (PagerSlidingTabStrip) mRootView.findViewById(R.id.pager_tabs);
-        mResultsViewPager = (ViewPager) mRootView.findViewById(R.id.pager);
+        View rootView = findViewById(R.id.results_root_view);
+        mResultsPagerSlidingTabStrip = (PagerSlidingTabStrip) rootView.findViewById(R.id.pager_tabs);
+        mResultsViewPager = (ViewPager) rootView.findViewById(R.id.pager);
         List<String> defaultInitialTitles = Arrays.asList(
                 format("%s", getString(R.string.new_posted).toUpperCase()),
                 format("%s", getString(R.string.most_liked).toUpperCase()),
